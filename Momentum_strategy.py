@@ -91,7 +91,7 @@ class TestStrategy(bt.Strategy):
                     if (self.getposition(d).size) != 0:
                         self.order = self.close(data=d)
                         self.log('SELL CREATE, %.2f' % d.open[1],d._name)
-                        #cerebro.broker.cash += 1000
+                        cerebro.broker.cash += 1000
             #    if (kontext.loc[dta.isoformat()]) and ((self.datas[0].datetime.date(0).month > self.datas[0].datetime.date(-1).month) or (self.datas[0].datetime.date(0).year > self.datas[0].datetime.date(-1).year)):
             # current close less than previous close
             #        self.log('BUY CREATE, %.2f' % self.datas[1].close[0],self.datas[1]._name)
