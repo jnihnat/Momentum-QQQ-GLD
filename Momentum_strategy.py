@@ -20,14 +20,14 @@ class IBCommision(bt.CommInfoBase):
 
         # Float. The minimum amount that will be charged. Ex: 1.0 means $1.00
         ('min_per_order', 1.0),
-# Float. The maximum that can be charged as a percent of the trade value. Ex: 0.005 means 0.5%
+        # Float. The maximum that can be charged as a percent of the trade value. Ex: 0.005 means 0.5%
         ('max_per_order_abs_pct', 0.005),
     )
 
     def _getcommission(self, size, price, pseudoexec):
 
         """
-        :param size: current position size. > 0 for long positions 
+        :param size: current position size. > 0 for long positions
         and < 0 for short positions (this parameter will not be 0)
         :param price: current position price
         :param pseudoexec:
@@ -52,8 +52,8 @@ class TestStrategy(bt.Strategy):
         if isinstance(dt, float):
             dt = bt.num2date(dt)
         #print('%s, %s' % (dt.isoformat(), txt))
-        self.logy = self.logy.append({'Date': dt.isoformat(), 'Stock': stockname, 'Order type': ordertype ,'Stock Price' :stockprice, 
-                                      'Order Price': OrderPrice, 'Order Commission' : Comm , 'Order Size':Size,'Order': txt, }, ignore_index=True)
+        self.logy = self.logy.append({'Date': dt.isoformat(), 'Stock': stockname, 'Order type': ordertype ,'Stock Price': stockprice,
+                                      'Order Price': OrderPrice, 'Order Commission': Comm , 'Order Size': Size,'Order': txt, }, ignore_index=True)
 
     def __init__(self):
         # Keep a reference to the "close" line in the data[0] dataseries
@@ -61,7 +61,7 @@ class TestStrategy(bt.Strategy):
         self.last_date = self.datas[0].datetime.date(-1)
         self.logy = pd.DataFrame()
         self.order = None
-        
+
     def notify_order(self, order):
 
         if order.status in [order.Expired]:
@@ -69,8 +69,8 @@ class TestStrategy(bt.Strategy):
 
         elif order.status in [order.Completed]:
             if order.isbuy():
-                self.log('',order.data._name,'BUY EXECUTED',order.executed.price,order.executed.value*order.executed.price,
-                     order.executed.comm,order.executed.size)
+                self.log('', order.data._name, 'BUY EXECUTED', order.executed.price, order.executed.value*order.executed.price,
+                         order.executed.comm, order.executed.size)
 
             else:  # Sell
                 self.log('', order.data._name,'SELL EXECUTED',order.executed.price,order.executed.value*order.executed.price,
@@ -151,9 +151,13 @@ AnnualReturn.index=AnnualReturn.index.rename('Year')
 AnnualReturn.columns = ['Return']
 AnnualReturn['Return'] *=100
 AverageReturn = AnnualReturn['Return'].mean() 
-print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis())
-print('DrowDown:', thestrat.analyzers.drawdown.get_analysis())
-print('TradeAnalyzer:', thestrat.analyzers.TradeAn.get_analysis())
+print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis()['sharperatio'])
+print('DrowDown:')
+main.pretty(thestrat.analyzers.drawdown.get_analysis())
+
+print('TradeAnalyzer:')
+main.pretty (thestrat.analyzers.TradeAn.get_analysis())
+
 print(AnnualReturn)
 logs = thestrat.logy
 #print (thestrat.logy)
