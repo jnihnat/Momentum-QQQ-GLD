@@ -20,15 +20,15 @@ class IBCommision(bt.CommInfoBase):
 
         # Float. The minimum amount that will be charged. Ex: 1.0 means $1.00
         ('min_per_order', 1.0),
-
-        # Float. The maximum that can be charged as a percent of the trade value. Ex: 0.005 means 0.5%
+# Float. The maximum that can be charged as a percent of the trade value. Ex: 0.005 means 0.5%
         ('max_per_order_abs_pct', 0.005),
     )
 
     def _getcommission(self, size, price, pseudoexec):
 
         """
-        :param size: current position size. > 0 for long positions and < 0 for short positions (this parameter will not be 0)
+        :param size: current position size. > 0 for long positions 
+        and < 0 for short positions (this parameter will not be 0)
         :param price: current position price
         :param pseudoexec:
         :return: the commission of an operation at a given price
@@ -46,14 +46,14 @@ class IBCommision(bt.CommInfoBase):
 
 class TestStrategy(bt.Strategy):
 
-    def log(self, txt, stockname=None, ordertype=None, stockprice=None, OrderPrice=None,Comm=None,Size=None,dt=None):
-        ''' Logging function for this strategy'''
+    def log(self, txt, stockname=None, ordertype=None, stockprice=None, OrderPrice=None, Comm=None, Size=None, dt=None):
+        ' Logging function for this strategy'
         dt = dt or self.datas[0].datetime.date(0)
         if isinstance(dt, float):
             dt = bt.num2date(dt)
         #print('%s, %s' % (dt.isoformat(), txt))
-        self.logy = self.logy.append({'Date': dt.isoformat(), 'Stock': stockname, 'Order type': ordertype ,'Stock Price' :stockprice, 'Order Price': OrderPrice,
-                                      'Order Commission' : Comm , 'Order Size':Size,'Order': txt, }, ignore_index=True)
+        self.logy = self.logy.append({'Date': dt.isoformat(), 'Stock': stockname, 'Order type': ordertype ,'Stock Price' :stockprice, 
+                                      'Order Price': OrderPrice, 'Order Commission' : Comm , 'Order Size':Size,'Order': txt, }, ignore_index=True)
 
     def __init__(self):
         # Keep a reference to the "close" line in the data[0] dataseries
@@ -118,7 +118,7 @@ class TestStrategy(bt.Strategy):
                     self.log('BUY CREATE, %.2f' % self.datas[0].open[1],self.datas[0]._name)    
                 
      
-start= datetime.date(2000,01,01)
+start= datetime.date(2000, 1, 1)
 cerebro = bt.Cerebro(cheat_on_open=True)
 kontext = main.kontext_filt(st_date = start, doba=200)
 kontext.index = pd.to_datetime(kontext.index)
