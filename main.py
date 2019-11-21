@@ -40,7 +40,8 @@ def kontext_filt (st_date=datetime.date(2017,1,1), doba=200):
     index ['Kontext_200_last_5'] = (SMA_doba_pom.iloc[-1] < index ['Actual']) & (SMA_doba_pom.iloc[-2] < index ['Actual'])&(SMA_doba_pom.iloc[-3] < index ['Actual'])&(SMA_doba_pom.iloc[-4] < index ['Actual']) & (SMA_doba_pom.iloc[-5] < index ['Actual'])
     return index2
 
-def nacitaj_data (symbol = 'NDX',st_date=datetime.date(2017,1,1)):
+
+def nacitaj_data(symbol = 'NDX',st_date=datetime.date(2017,1,1)):
 #    tickers = tickers.columns.values.tolist()
     tickers = ['QQQ','GLD']
     data = pd.DataFrame()
