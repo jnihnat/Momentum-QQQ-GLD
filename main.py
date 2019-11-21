@@ -61,11 +61,12 @@ def nacitaj_data (symbol = 'NDX',st_date=datetime.date(2017,1,1)):
     data = data.pivot(index='date',columns='ticker',values=['close','open','adjusted close','dividend amount','high','low','split coefficient','volume'])
     return data
 
+
 def pretty(d, indent=0):
-   for key, value in d.items():
-      print ('\t' * indent + str(key),end='')
-      if isinstance(value, dict):
-          print ('') 
-          pretty(value, indent+1)
-      else:
-         print(': '+str(value))
+    for key, value in d.items():
+        print('\t' * indent + str(key),end='')
+        if isinstance(value, dict):
+            print('')
+            pretty(value, indent+1)
+        else:
+            print(': '+str(value))
