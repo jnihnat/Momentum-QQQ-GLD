@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jnihnat/Momentum-QQQ-GLD",
-    entry_points={"console_scripts": ["Backtrade = Backtrade.__main__"]},
+    entry_points={"console_scripts": ["Backtrade = Backtrade.Financnik_SMO_PRO:run"]},
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
