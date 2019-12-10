@@ -4,3 +4,7 @@ Backtrade.egg-info/PKG-INFO
 Backtrade.egg-info/SOURCES.txt
 Backtrade.egg-info/dependency_links.txt
 Backtrade.egg-info/top_level.txt
+Momentum-QQQ-GLD/Financnik_SMO_PRO.py
+Momentum-QQQ-GLD/StockDataAndCalculation.py
+Momentum-QQQ-GLD/__init__.py
+Momentum-QQQ-GLD/__main__.py
