@@ -13,7 +13,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     data_files=[('../Backtrade', ['Backtrade/NASDAQ100.csv']), ('../Backtrade/Data/datas', glob('Backtrade/Data/datas/**'))],
-    package_data={'Backtrade1': ['Data/*']},
+    package_data={'Backtrade1': ['NASDAQ100.csv']},
     #include_package_data=True,
     url="https://github.com/jnihnat/Momentum-QQQ-GLD",
     entry_points={"console_scripts": ["Backtrade = Backtrade.Financnik_SMO_PRO:run"]},
