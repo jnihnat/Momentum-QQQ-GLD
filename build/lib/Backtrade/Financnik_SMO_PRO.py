@@ -1,13 +1,11 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
-
-import datetime
-
-import __main__ as main
 import backtrader as bt
+import Backtrade.__main__ as main
+import pandas as pd
+import datetime
+import Backtrade.StockDataAndCalculation as SDC
 import numpy as np
-
-from .StockDataAndCalculation import *
 
 
 class IBCommision(bt.CommInfoBase):
@@ -158,8 +156,8 @@ def run():
     cerebro = bt.Cerebro(cheat_on_open=True)
     kontext_list = ('QQQ', 'SPY', )
     stock_list = ('NDX',)
-    stock_data = DATA(*stock_list)
-    kontext_data = DATA(*kontext_list)
+    stock_data = SDC.DATA(*stock_list)
+    kontext_data = SDC.DATA(*kontext_list)
     # Reload = input("Do you want to reload data from AV before running test? Y/N: ")
     # if Reload == "Y":
     #     print("reloading")
