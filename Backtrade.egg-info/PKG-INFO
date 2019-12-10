@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: Backtrade
+Version: 0.0.1
+Summary: Backtrading function
+Home-page: https://github.com/jnihnat/Momentum-QQQ-GLD
+Author: Jan Ihnat
+Author-email: jnihnat@gmail.com
+License: UNKNOWN
+Description: Backtrading strategy 1.0
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
