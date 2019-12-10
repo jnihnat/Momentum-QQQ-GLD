@@ -1,8 +1,12 @@
 import setuptools
 from glob import glob
+from os.path import expanduser
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+
+home = expanduser('~')
+BT_home = str(home + '/Documents/Backtrade/')
 
 setuptools.setup(
     name="Backtrade",
@@ -12,8 +16,7 @@ setuptools.setup(
     description="Backtrading function",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    data_files=[('Backtrade', ['Backtrade/NASDAQ100.csv']), ('Backtrade/Data/datas', glob('Backtrade/Data/datas/**'))],
-    package_data={'Backtrade': ['NASDAQ100.csv']},
+    data_files=[(BT_home+'IndexData', ['Backtrade/Data/IndexData/NASDAQ100.csv']), (BT_home+'StockData', glob('Backtrade/Data/StockData/**'))],
     #include_package_data=True,
     url="https://github.com/jnihnat/Momentum-QQQ-GLD",
     entry_points={"console_scripts": ["Backtrade = Backtrade.Financnik_SMO_PRO:run"]},

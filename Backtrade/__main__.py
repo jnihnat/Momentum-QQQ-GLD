@@ -10,7 +10,7 @@ def kontext_filt(st_date=dt.date(2017, 1, 1), doba=200):
     tickers = ['QQQ', 'SPY']
     
     for t in tickers:
-        data_pom = pd.read_csv('Data/datas/'+t+'.csv', usecols=['date', 'adjusted close'])
+        data_pom = pd.read_csv('Data/StockData/'+t+'.csv', usecols=['date', 'adjusted close'])
         if data_kont.empty:
             data_pom = data_pom.set_index('date')
             data_pom = data_pom.rename(columns={'adjusted close': t})
@@ -49,7 +49,7 @@ def nacitaj_data(symbol='NDX', st_date=dt.date(2017, 1, 1)):
     data = pd.DataFrame()
     for t in tickers:
         # time.sleep(12)
-        data_pom = pd.read_csv('Data/datas/'+t+'.csv')
+        data_pom = pd.read_csv('Data/StockData/'+t+'.csv')
         if data.empty:
             data_pom['ticker'] = t
             data_pom.index = data_pom.index.rename('date')

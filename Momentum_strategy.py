@@ -93,12 +93,12 @@ class TestStrategy(bt.Strategy):
                         self.order = self.close(data=d)
                         self.log('SELL CREATE, %.2f' % d.open[1],d._name)
                         cerebro.broker.cash += 1000
-            #    if (kontext.loc[dta.isoformat()]) and ((self.datas[0].datetime.date(0).month > self.datas[0].datetime.date(-1).month) or (self.datas[0].datetime.date(0).year > self.datas[0].datetime.date(-1).year)):
+            #    if (kontext.loc[dta.isoformat()]) and ((self.StockData[0].datetime.date(0).month > self.StockData[0].datetime.date(-1).month) or (self.StockData[0].datetime.date(0).year > self.StockData[0].datetime.date(-1).year)):
             # current close less than previous close
-            #        self.log('BUY CREATE, %.2f' % self.datas[1].close[0],self.datas[1]._name)
-            #        size_pom = round(cerebro.broker.cash / self.datas[1].close[0] -1)*1.5
+            #        self.log('BUY CREATE, %.2f' % self.StockData[1].close[0],self.StockData[1]._name)
+            #        size_pom = round(cerebro.broker.cash / self.StockData[1].close[0] -1)*1.5
             #        #self.order = self.order_target_percent(target=0.5)
-            #        self.order = self.buy(data=self.datas[1],size=size_pom,exectype=bt.Order.Market)
+            #        self.order = self.buy(data=self.StockData[1],size=size_pom,exectype=bt.Order.Market)
         
         if self.order == None:
             if (kontext.loc[dta.isoformat()]) and (self.getposition(data=self.datas[1]).size == 0):

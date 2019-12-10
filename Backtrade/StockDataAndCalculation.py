@@ -5,6 +5,9 @@ from pandas_datareader import data as wb
 import os.path
 import pytz
 
+home = os.path.expanduser("~")
+BT_home = str(home + '/Documents/Backtrade/')
+
 
 class DATA:
 
@@ -17,17 +20,15 @@ class DATA:
         self.tickers = tuple()
         self.data = pd.DataFrame()
         self.buss_day = (dt.datetime.now(pytz.timezone('America/New_York')))
-        test = pd.DataFrame()
-        test.to_csv('asd.csv')
         if len(args) == 1:
             if self.StockBunch.keys().__contains__(*args):
-                self.tickers = tuple(pd.read_csv(self.StockBunch[args[0]], sep=";").keys())
+                self.tickers = tuple(pd.read_csv(str(BT_home+'Data/IndexData/'+self.StockBunch[args[0]]), sep=";").keys())
             else:
                 self.tickers = args
         else:
             for n in args:
                 if self.StockBunch.keys().__contains__(n):
-                    self.tickers = (*self.tickers, *tuple(pd.read_csv(self.StockBunch[n], sep=";").keys()))
+                    self.tickers = (*self.tickers, *tuple(pd.read_csv(str(BT_home+'Data/IndexData/'+self.StockBunch[n]), sep=";").keys()))
                 else:
                     self.tickers = (*self.tickers, n)
         self.BussDay()
@@ -50,13 +51,13 @@ class DATA:
             if self.CheckValidData(t):
                 data = wb.DataReader(t, data_source='av-daily-adjusted', start=None, end=None, api_key='E4RF78ROAZRJNAGK')
                 data.index = data.index.rename('date')
-                data.to_csv('Data\datas\\' + t + '.csv')
+                data.to_csv(BT_home+'Data/StockData/' + t + '.csv')
                 time.sleep(12)
         return
 
     def CheckValidData(self, stock):
-        if os.path.exists('Data\datas\\' + str(stock) + '.csv'):
-            data_pom = pd.read_csv('Data/datas/' + str(stock) + '.csv', usecols=['date'])['date']
+        if os.path.exists(BT_home+'Data/StockData/' + str(stock) + '.csv'):
+            data_pom = pd.read_csv(BT_home+'Data/StockData/' + str(stock) + '.csv', usecols=['date'])['date']
             if dt.datetime.strptime(data_pom.iloc[0], '%Y-%m-%d').date() == self.buss_day.date():
                 return False
             else:
@@ -66,7 +67,7 @@ class DATA:
 
     def ReadDataCSV(self):
         for stock in self.tickers:
-            data_pom = pd.read_csv('Data/datas/' + stock + '.csv')
+            data_pom = pd.read_csv(BT_home+'Data/StockData/' + stock + '.csv')
             if self.data.empty:
                 data_pom['ticker'] = stock
                 data_pom.index = data_pom.index.rename('date')

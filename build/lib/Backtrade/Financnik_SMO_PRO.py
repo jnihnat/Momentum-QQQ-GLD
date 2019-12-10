@@ -6,6 +6,10 @@ import pandas as pd
 import datetime
 import Backtrade.StockDataAndCalculation as SDC
 import numpy as np
+import os.path
+
+home = os.path.expanduser("~")
+BT_home = str(home + '/Documents/Backtrade/')
 
 
 class IBCommision(bt.CommInfoBase):
@@ -206,13 +210,13 @@ def run():
     main.pretty(thestrat.analyzers.drawdown.get_analysis())
 
     print('TradeAnalyzer:')
-    main.pretty (thestrat.analyzers.TradeAn.get_analysis())
+    main.pretty(thestrat.analyzers.TradeAn.get_analysis())
 
     print(AnnualReturn)
-    logs = thestrat.logy
-    print(thestrat.logy)
-    thestrat.logy.to_csv(path_or_buf='logs.csv', index='False')
+    # logs = thestrat.logy
+    # print(thestrat.logy)
+    thestrat.logy.to_csv(path_or_buf=BT_home+'Data/Logs/logs.csv', index='False')
     print('Average Return: %.2f ' % AverageReturn)
-    #print('Trade An:', thestrat.analyzers.TradeAn.get_analysis())
+    # print('Trade An:', thestrat.analyzers.TradeAn.get_analysis())
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
     #cerebro.plot()
