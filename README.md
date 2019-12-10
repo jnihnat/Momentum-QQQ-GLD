@@ -16,7 +16,7 @@ Thanks to this the pip has to be called with --no-binary argument so for saving 
 Also the app is not registered at pip, so for instalation use:
 
 ::
-
+.. code-block::
   pip install --no-binary :all: git+https://github.com/jnihnat/Momentum-QQQ-GLD
 
 To Do
