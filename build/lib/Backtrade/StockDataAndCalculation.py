@@ -17,6 +17,8 @@ class DATA:
         self.tickers = tuple()
         self.data = pd.DataFrame()
         self.buss_day = (dt.datetime.now(pytz.timezone('America/New_York')))
+        test = pd.DataFrame()
+        test.to_csv('asd.csv')
         if len(args) == 1:
             if self.StockBunch.keys().__contains__(*args):
                 self.tickers = tuple(pd.read_csv(self.StockBunch[args[0]], sep=";").keys())
