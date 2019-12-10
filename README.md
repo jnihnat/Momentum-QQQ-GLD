@@ -14,8 +14,10 @@ Installation
 Due to working with csv files, it was determined that the best place to save tham will be in Home folder in Documents.
 Thanks to this the pip has to be called with --no-binary argument so for saving data is used absolute path and not relative.
 Also the app is not registered at pip, so for instalation use:
+
 ::
-pip install --no-binary :all: git+https://github.com/jnihnat/Momentum-QQQ-GLD
+
+  pip install --no-binary :all: git+https://github.com/jnihnat/Momentum-QQQ-GLD
 
 To Do
 ---------
