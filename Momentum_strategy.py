@@ -44,6 +44,7 @@ class IBCommision(bt.CommInfoBase):
             commission = order_price * self.p.max_per_order_abs_pct
         return commission
 
+
 class TestStrategy(bt.Strategy):
 
     def log(self, txt, stockname=None, ordertype=None, stockprice=None, OrderPrice=None, Comm=None, Size=None, dt=None):

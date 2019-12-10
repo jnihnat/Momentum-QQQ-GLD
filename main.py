@@ -1,20 +1,16 @@
-import numpy as np
 import pandas as pd
-import datetime as DT
-import time
-import datetime
-from pandas_datareader import data as wb
-from matplotlib import pyplot as plt
+import datetime as dt
+import Financnik_SMO_PRO as FSP
 
 
-def kontext_filt(st_date=datetime.date(2017, 1, 1), doba=200):
+def kontext_filt(st_date=dt.date(2017, 1, 1), doba=200):
     data_kont = pd.DataFrame()
     data_pom = pd.DataFrame()
-    # st_date = st_date - DT.timedelta(days=doba*2)
-    tickers = ['QQQ', 'SPY', 'VTWO', 'OEF']
+    # st_date = st_date - dt.timedelta(days=doba*2)
+    tickers = ['QQQ', 'SPY']
     
     for t in tickers:
-        data_pom = pd.read_csv('Data/'+t+'.csv',usecols=['date', 'adjusted close'])
+        data_pom = pd.read_csv('Data/datas/'+t+'.csv', usecols=['date', 'adjusted close'])
         if data_kont.empty:
             data_pom = data_pom.set_index('date')
             data_pom = data_pom.rename(columns={'adjusted close': t})
@@ -32,6 +28,9 @@ def kontext_filt(st_date=datetime.date(2017, 1, 1), doba=200):
     sma_20_pom = data_kont.rolling(window=20).mean()
     sma_doba_pom = data_kont.rolling(window=doba).mean()
     index2 = (sma_doba_pom['QQQ'] < data_kont['QQQ']) & (sma_doba_pom['SPY'] < data_kont['SPY'])
+    index2['qqq'] = sma_doba_pom['QQQ']
+    index2['aaa'] = data_kont['QQQ']
+    index2.to_csv(path_or_buf='index.csv', index='False')
     index = pd.DataFrame()
     index['Actual'] = data_kont.iloc[-1]
     index['SMA_20'] = sma_20_pom.iloc[-1]
@@ -44,13 +43,13 @@ def kontext_filt(st_date=datetime.date(2017, 1, 1), doba=200):
     return index2
 
 
-def nacitaj_data(symbol='NDX', st_date=datetime.date(2017, 1, 1)):
+def nacitaj_data(symbol='NDX', st_date=dt.date(2017, 1, 1)):
     # tickers = tickers.columns.values.tolist()
     tickers = ['QQQ', 'GLD']
     data = pd.DataFrame()
     for t in tickers:
         # time.sleep(12)
-        data_pom = pd.read_csv('Data/'+t+'.csv')
+        data_pom = pd.read_csv('Data/datas/'+t+'.csv')
         if data.empty:
             data_pom['ticker'] = t
             data_pom.index = data_pom.index.rename('date')
@@ -75,3 +74,7 @@ def pretty(d, indent=0):
             pretty(value, indent+1)
         else:
             print(': '+str(value))
+
+
+if __name__ == '__main__':
+    FSP.run()
