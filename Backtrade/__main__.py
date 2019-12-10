@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime as dt
-import Financnik_SMO_PRO as FSP
+import Backtrade.Financnik_SMO_PRO as FSP
 
 
 def kontext_filt(st_date=dt.date(2017, 1, 1), doba=200):
