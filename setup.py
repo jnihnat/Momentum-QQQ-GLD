@@ -12,7 +12,7 @@ setuptools.setup(
     description="Backtrading function",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    data_files=[('NDX', ['Backtrade/NASDAQ100.csv']), ('Stockdata', glob('Backtrade/Data/datas/**'))],
+    data_files=[('..', ['Backtrade/NASDAQ100.csv']), ('Stockdata', glob('Backtrade/Data/datas/**'))],
     package_data={'Backtrade1': ['Data/*']},
     #include_package_data=True,
     url="https://github.com/jnihnat/Momentum-QQQ-GLD",
