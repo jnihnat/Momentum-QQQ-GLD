@@ -1,4 +1,4 @@
-import Financnik_SMO_PRO as FSP
+from .Financnik_SMO_PRO import *
 
 if __name__ == '__main__':
-    FSP.run()
+    run()

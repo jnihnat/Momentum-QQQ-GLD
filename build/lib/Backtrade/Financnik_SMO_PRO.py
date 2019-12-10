@@ -4,7 +4,7 @@ import backtrader as bt
 import __main__ as main
 import pandas as pd
 import datetime
-import StockDataAndCalculation as SDC
+from .StockDataAndCalculation import *
 import numpy as np
 
 
@@ -156,8 +156,8 @@ def run():
     cerebro = bt.Cerebro(cheat_on_open=True)
     kontext_list = ('QQQ', 'SPY', )
     stock_list = ('NDX',)
-    stock_data = SDC.DATA(*stock_list)
-    kontext_data = SDC.DATA(*kontext_list)
+    stock_data = DATA(*stock_list)
+    kontext_data = DATA(*kontext_list)
     # Reload = input("Do you want to reload data from AV before running test? Y/N: ")
     # if Reload == "Y":
     #     print("reloading")
