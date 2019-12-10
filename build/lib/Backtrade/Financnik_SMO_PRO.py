@@ -1,11 +1,13 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
-import backtrader as bt
-import __main__ as main
-import pandas as pd
+
 import datetime
-from .StockDataAndCalculation import *
+
+import __main__ as main
+import backtrader as bt
 import numpy as np
+
+from .StockDataAndCalculation import *
 
 
 class IBCommision(bt.CommInfoBase):

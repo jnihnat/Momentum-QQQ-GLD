@@ -7,4 +7,5 @@ Backtrade/__main__.py
 Backtrade.egg-info/PKG-INFO
 Backtrade.egg-info/SOURCES.txt
 Backtrade.egg-info/dependency_links.txt
+Backtrade.egg-info/entry_points.txt
 Backtrade.egg-info/top_level.txt
