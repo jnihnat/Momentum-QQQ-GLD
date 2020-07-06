@@ -4,7 +4,7 @@ import backtrader as bt
 import Backtrade.__main__ as main
 import pandas as pd
 import datetime
-import Backtrade.StockDataAndCalculation as SDC
+import Backtrade.Strategy_Calculations as SDC
 import numpy as np
 import os.path
 

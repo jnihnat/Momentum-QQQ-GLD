@@ -1,51 +1,26 @@
 import pandas as pd
 import datetime as dt
 import Backtrade.Financnik_SMO_PRO as FSP
+from Backtrade import Strategy_Calculations as SC
+import os
+
+home = os.path.expanduser("~")
+BT_home = str(home + '/Documents/Backtrade/')
+stock_companies = {
+    "1": "NDX",
+    "2": "SPX"
+}
+strategies = {
+    "1": "SmoProUpgraded",
+    "2": "SmoProFinancnik"
+}
 
 
-def kontext_filt(st_date=dt.date(2017, 1, 1), doba=200):
-    data_kont = pd.DataFrame()
-    data_pom = pd.DataFrame()
-    # st_date = st_date - dt.timedelta(days=doba*2)
-    tickers = ['QQQ', 'SPY']
-    
-    for t in tickers:
-        data_pom = pd.read_csv('Data/StockData/'+t+'.csv', usecols=['date', 'adjusted close'])
-        if data_kont.empty:
-            data_pom = data_pom.set_index('date')
-            data_pom = data_pom.rename(columns={'adjusted close': t})
-            data_kont = data_pom
-        else:
-            data_pom = data_pom.set_index('date')
-            data_pom = data_pom.rename(columns={'adjusted close': t})
-            data_kont = pd.merge(data_kont, data_pom, on='date', how='outer')
-    '''
-    for t in tickers:
-        data_kont[t] = wb.DataReader(t,data_source = 'av-daily-adjusted', start = st_date,access_key='E4RF78ROAZRJNAGK')['adjusted close']
-        time.sleep(10)
-    '''
-    data_kont.to_csv(path_or_buf='data1.csv', index='False')
-    sma_20_pom = data_kont.rolling(window=20).mean()
-    sma_doba_pom = data_kont.rolling(window=doba).mean()
-    index2 = (sma_doba_pom['QQQ'] < data_kont['QQQ']) & (sma_doba_pom['SPY'] < data_kont['SPY'])
-    index2['qqq'] = sma_doba_pom['QQQ']
-    index2['aaa'] = data_kont['QQQ']
-    index2.to_csv(path_or_buf='index.csv', index='False')
-    index = pd.DataFrame()
-    index['Actual'] = data_kont.iloc[-1]
-    index['SMA_20'] = sma_20_pom.iloc[-1]
-    index['SMA_' + str(doba)] = sma_doba_pom.iloc[-1]
-    index['Kontext_20'] = index['SMA_20'] < index['Actual']
-    index['Kontext_' + str(doba)] = index['SMA_' + str(doba)] < index['Actual']
-    index['Kontext_200_last_5'] = (sma_doba_pom.iloc[-1] < index['Actual']) & (sma_doba_pom.iloc[-2] < index['Actual']) & \
-                                   (sma_doba_pom.iloc[-3] < index['Actual']) & (sma_doba_pom.iloc[-4] < index['Actual']) & \
-                                   (sma_doba_pom.iloc[-5] < index['Actual'])
-    return index2
 
 
 def nacitaj_data(symbol='NDX', st_date=dt.date(2017, 1, 1)):
     # tickers = tickers.columns.values.tolist()
-    tickers = ['QQQ', 'GLD']
+    tickers = ['QQQ', 'SPY']
     data = pd.DataFrame()
     for t in tickers:
         # time.sleep(12)
@@ -77,4 +52,43 @@ def pretty(d, indent=0):
 
 
 if __name__ == '__main__':
-    FSP.run()
+    SC.kontext_filt()
+    chose = input("What you wont to do?\n"
+                  "Run backtest on strategy - 1\n"
+                  "Run filter creation for strategy - 2\n"
+                  "")
+    if chose == "1":
+        FSP.run()
+    elif chose == "2":
+        chose_stocks = input("For what index companies you want to create filter?\n"
+                             "Nasdaq 100 - 1\n"
+                             "SPY 500 - 2\n"
+                             "")
+        strategy = input("For what strategy you want to create filter?\n"
+                         "SMO PRO Upgraded - 1\n"
+                         "SMO PRO Financnik - 2\n"
+                         "")
+        date = input("For what date you want to create filter?\n"
+                     "Please use format YYYY-MM-DD\n"
+                     )
+        date = dt.datetime.fromisoformat(str(date+" 09:31"))
+        date = SC.BussDay(actual_date=date)
+        strdate = date.strftime("%Y-%m-%d")
+        csv_name = str(BT_home + "Calculated_Tables/" + strategies[strategy] + "_" + strdate + ".csv")
+        if os.path.exists(csv_name):
+            print("Calculated filter from past: ", csv_name)
+        else:
+            datas = SC.DATA(stock_companies[chose_stocks])
+            datas.ReloadDataFromAV()
+            datas.ReadDataCSV()
+            datas.data = datas.data[
+                       ((datas.data.index.get_loc(key=str(strdate))) - 500): (datas.data.index.get_loc(key=str(strdate))) + 1
+                       ]
+            my_class = SC.StrategieCalculations(datas.data)
+            func = getattr(my_class, strategies[strategy])
+            func(date, port_value=55000)
+            print("Calculated filter: ", csv_name)
+
+    else:
+        exit(200)
+
